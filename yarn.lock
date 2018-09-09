@@ -262,6 +262,12 @@
   version "0.6.5"
   resolved "http://localhost:4873/@emotion%2fhash/-/hash-0.6.5.tgz#097729b84a5164f71f9acd2570ecfd1354d7b360"
 
+"@emotion/is-prop-valid@^0.6.1":
+  version "0.6.7"
+  resolved "https://registry.npmjs.org/@emotion/is-prop-valid/-/is-prop-valid-0.6.7.tgz#1767d39c29ba786b7afc3d8d727a2896995f01eb"
+  dependencies:
+    "@emotion/memoize" "^0.6.5"
+
 "@emotion/memoize@^0.6.1", "@emotion/memoize@^0.6.5":
   version "0.6.5"
   resolved "http://localhost:4873/@emotion%2fmemoize/-/memoize-0.6.5.tgz#f868c314b889e7c3d84868a1d1cc323fbb40ca86"
@@ -1170,7 +1176,7 @@ babel-plugin-dynamic-import-node@2.0.0:
     babel-plugin-syntax-dynamic-import "^6.18.0"
     object.assign "^4.1.0"
 
-babel-plugin-emotion@^9.2.8:
+babel-plugin-emotion@9.2.8, babel-plugin-emotion@^9.2.8:
   version "9.2.8"
   resolved "http://localhost:4873/babel-plugin-emotion/-/babel-plugin-emotion-9.2.8.tgz#4df55ef10625c391f25b031f7e3006abac359e09"
   dependencies:
@@ -2864,15 +2870,9 @@ cosmiconfig@^5.0.0:
     js-yaml "^3.9.0"
     parse-json "^4.0.0"
 
-<<<<<<< e602e676baacd15d1f1de9f57d7e78d60380ebe3
-cosmiconfig@^5.0.2:
-  version "5.0.6"
-  resolved "https://registry.npmjs.org/cosmiconfig/-/cosmiconfig-5.0.6.tgz#dca6cf680a0bd03589aff684700858c81abeeb39"
-=======
-cosmiconfig@^5.0.5:
+cosmiconfig@^5.0.2, cosmiconfig@^5.0.5:
   version "5.0.6"
   resolved "http://localhost:4873/cosmiconfig/-/cosmiconfig-5.0.6.tgz#dca6cf680a0bd03589aff684700858c81abeeb39"
->>>>>>> feat: added emotion dependency
   dependencies:
     is-directory "^0.3.1"
     js-yaml "^3.9.0"
@@ -2884,6 +2884,12 @@ create-ecdh@^4.0.0:
   dependencies:
     bn.js "^4.1.0"
     elliptic "^6.0.0"
+
+create-emotion-styled@^9.2.8:
+  version "9.2.8"
+  resolved "https://registry.npmjs.org/create-emotion-styled/-/create-emotion-styled-9.2.8.tgz#c0050e768ba439609bec108600467adf2de67cc3"
+  dependencies:
+    "@emotion/is-prop-valid" "^0.6.1"
 
 create-emotion@^9.2.6:
   version "9.2.6"
@@ -3190,15 +3196,9 @@ cssstyle@^1.0.0:
   dependencies:
     cssom "0.3.x"
 
-<<<<<<< e602e676baacd15d1f1de9f57d7e78d60380ebe3
 csstype@^2.0.0, csstype@^2.2.0, csstype@^2.5.2:
   version "2.5.6"
-  resolved "https://registry.npmjs.org/csstype/-/csstype-2.5.6.tgz#2ae1db2319642d8b80a668d2d025c6196071e788"
-=======
-csstype@^2.5.2:
-  version "2.5.6"
   resolved "http://localhost:4873/csstype/-/csstype-2.5.6.tgz#2ae1db2319642d8b80a668d2d025c6196071e788"
->>>>>>> feat: added emotion dependency
 
 currently-unhandled@^0.4.1:
   version "0.4.1"
@@ -4355,15 +4355,13 @@ find-cache-dir@^1.0.0:
     make-dir "^1.0.0"
     pkg-dir "^2.0.0"
 
-<<<<<<< e602e676baacd15d1f1de9f57d7e78d60380ebe3
 find-parent-dir@^0.3.0:
   version "0.3.0"
   resolved "https://registry.npmjs.org/find-parent-dir/-/find-parent-dir-0.3.0.tgz#33c44b429ab2b2f0646299c5f9f718f376ff8d54"
-=======
+
 find-root@^1.1.0:
   version "1.1.0"
   resolved "http://localhost:4873/find-root/-/find-root-1.1.0.tgz#abcfc8ba76f708c42a97b3d685b7e9450bfb9ce4"
->>>>>>> feat: added emotion dependency
 
 find-up@^1.0.0:
   version "1.1.2"
@@ -8864,6 +8862,13 @@ react-dom@16.4.2:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.0"
+
+react-emotion@9.2.8:
+  version "9.2.8"
+  resolved "https://registry.npmjs.org/react-emotion/-/react-emotion-9.2.8.tgz#e4e24540bdcb7daacf87c405760ed619bddbb61b"
+  dependencies:
+    babel-plugin-emotion "^9.2.8"
+    create-emotion-styled "^9.2.8"
 
 react-event-listener@^0.6.2:
   version "0.6.3"

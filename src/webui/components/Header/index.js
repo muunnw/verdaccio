@@ -1,69 +1,92 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+/**
+ * @prettier
+ */
+
+// @flow
+
+import React, {Component, MouseEvent} from 'react';
 import Button from '@material-ui/core/Button';
-import capitalize from 'lodash/capitalize';
-import { getRegistryURL } from '../../utils/url';
-import classes from './header.scss';
-import './logo.png';
+import IconButton from '@material-ui/core/IconButton';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
-const Header = ({
-  logo = '',
-  scope = '',
-  username = '',
-  handleLogout = () => { },
-  toggleLoginModal = () => { }
-}) => {
-  const registryUrl = getRegistryURL();
-  return (
-    <header className={classes.header}>
-      <div className={classes.headerWrap}>
-        <a href="/#/">
-          <img src={logo} className={classes.logo} />
-        </a>
-        <figure>
-          npm set {scope}
-          registry {registryUrl}
-          <br />
-          npm adduser --registry {registryUrl}
-        </figure>
+import Link from '../Link';
+import Logo from '../Logo';
 
-        <div className={classes.headerRight}>
+import {IProps, IState} from './indexInterfaces';
+import {Wrapper, InnerWrapper} from './indexStyles';
+
+class Header extends Component<IProps, IState> {
+  constructor() {
+    super();
+    this.handleMenu = this.handleMenu.bind(this);
+    this.handleClose = this.handleClose.bind(this);
+    this.state = {
+      anchorEl: null,
+    };
+  }
+
+  handleMenu(event: MouseEvent<HTMLElement>) {
+    this.setState({
+      anchorEl: event.currentTarget,
+    });
+  }
+
+  handleClose() {
+    this.setState({
+      anchorEl: null,
+    });
+  }
+
+  renderMenu() {
+    const {username = '', handleLogout} = this.props;
+    const {anchorEl} = this.state;
+    const open = Boolean(anchorEl);
+    return (
+      <React.Fragment>
+        <IconButton aria-owns={username ? 'menu-appbar' : null} aria-haspopup="true" color="inherit" onClick={this.handleMenu}>
+          <AccountCircle />
+        </IconButton>
+        <Menu
+          id="menu-appbar"
+          anchorEl={anchorEl}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          open={open}
+          onClose={this.handleClose}
+        >
+          <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        </Menu>
+      </React.Fragment>
+    );
+  }
+
+  render() {
+    const {username = '', toggleLoginModal} = this.props;
+    return (
+      <Wrapper position="static">
+        <InnerWrapper>
+          <Link href="/">
+            <Logo />
+          </Link>
           {username ? (
-            <div className="user-logged">
-              <span
-                className={`user-logged-greetings ${classes.usernameField}`}
-              >
-                Hi, {capitalize(username)}
-              </span>
-              <Button
-                className={`${classes.headerButton} header-button-logout`}
-                color="primary"
-                onClick={handleLogout}
-              >
-                Logout
-              </Button>
-            </div>
+            this.renderMenu()
           ) : (
-              <Button
-                className={`${classes.headerButton} header-button-login`}
-                color="primary"
-                onClick={toggleLoginModal}
-              >
-                Login
+            <Button color="inherit" onClick={toggleLoginModal}>
+              Login
             </Button>
-            )}
-        </div>
-      </div>
-    </header>
-  );
-};
-
-Header.propTypes = {
-  logo: PropTypes.string,
-  scope: PropTypes.string,
-  username: PropTypes.string,
-  handleLogout: PropTypes.func.isRequired,
-  toggleLoginModal: PropTypes.func.isRequired
-};
+          )}
+        </InnerWrapper>
+      </Wrapper>
+    );
+  }
+}
 
 export default Header;
