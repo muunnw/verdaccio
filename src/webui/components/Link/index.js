@@ -5,11 +5,7 @@
 /* @flow */
 
 import React from 'react';
-
-type IProps = {
-  children?: ReactElement,
-  href?: string,
-};
+import {IProps} from './interfaces';
 
 const Link = ({children, href = '#'}: IProps): ReactElement => <a href={href}>{children}</a>;
 
