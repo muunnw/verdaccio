@@ -30,7 +30,7 @@ class Header extends Component<IProps, IState> {
     this.state = {
       anchorEl: null,
       openInfoDialog: false,
-      registryURL: '',
+      registryUrl: '',
     };
   }
 
