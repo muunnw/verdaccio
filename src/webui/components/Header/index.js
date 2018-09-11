@@ -27,6 +27,7 @@ class Header extends Component<IProps, IState> {
     this.handleClose = this.handleClose.bind(this);
     this.handleOpenInfoDialog = this.handleOpenInfoDialog.bind(this);
     this.handleCloseInfoDialog = this.handleCloseInfoDialog.bind(this);
+    this.renderInfoDialog = this.renderInfoDialog.bind(this);
     this.state = {
       anchorEl: null,
       openInfoDialog: false,
@@ -65,17 +66,43 @@ class Header extends Component<IProps, IState> {
     });
   }
 
+  renderLeftSide() {
+    return (
+      <Link href="/">
+        <Logo />
+      </Link>
+    );
+  }
+
+  renderRightSide() {
+    const {username = '', toggleLoginModal} = this.props;
+    return (
+      <div>
+        <IconButton color="inherit" onClick={this.handleOpenInfoDialog}>
+          <Info />
+        </IconButton>
+        {username ? (
+          this.renderMenu()
+        ) : (
+          <Button color="inherit" onClick={toggleLoginModal}>
+            Login
+          </Button>
+        )}
+      </div>
+    );
+  }
+
   renderMenu() {
     const {username = '', handleLogout} = this.props;
     const {anchorEl} = this.state;
     const open = Boolean(anchorEl);
     return (
       <React.Fragment>
-        <IconButton aria-owns={username ? 'menu-appbar' : null} aria-haspopup="true" color="inherit" onClick={this.handleMenu}>
+        <IconButton aria-owns={username ? 'sidebar-menu' : null} aria-haspopup="true" color="inherit" onClick={this.handleMenu}>
           <AccountCircle />
         </IconButton>
         <Menu
-          id="menu-appbar"
+          id="sidebar-menu"
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: 'top',
@@ -94,37 +121,27 @@ class Header extends Component<IProps, IState> {
     );
   }
 
-  render() {
-    const {scope, username = '', toggleLoginModal} = this.props;
+  renderInfoDialog() {
+    const {scope} = this.props;
     const {openInfoDialog, registryUrl} = this.state;
+    return (
+      <InfoDialog open={openInfoDialog} onClose={this.handleCloseInfoDialog}>
+        <p style={{cursor: 'pointer'}}>
+          npm set {scope} registry {registryUrl}
+        </p>
+        <p style={{cursor: 'pointer'}}>npm adduser --registry {registryUrl}</p>
+      </InfoDialog>
+    );
+  }
+
+  render() {
     return (
       <Wrapper position="static">
         <InnerWrapper>
-          <Link href="/">
-            <Logo />
-          </Link>
-          <div>
-            <IconButton color="inherit" onClick={this.handleOpenInfoDialog}>
-              <Info />
-            </IconButton>
-            {username ? (
-              this.renderMenu()
-            ) : (
-              <Button color="inherit" onClick={toggleLoginModal}>
-                Login
-              </Button>
-            )}
-          </div>
+          {this.renderLeftSide()}
+          {this.renderRightSide()}
         </InnerWrapper>
-        <InfoDialog open={openInfoDialog} onClose={this.handleCloseInfoDialog}>
-          <React.Fragment>
-            <p>
-              npm set {scope}
-              registry {registryUrl}
-            </p>
-            <p>npm adduser --registry {registryUrl}</p>
-          </React.Fragment>
-        </InfoDialog>
+        {this.renderInfoDialog()}
       </Wrapper>
     );
   }
