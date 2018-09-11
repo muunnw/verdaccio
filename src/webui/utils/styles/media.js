@@ -1,13 +1,28 @@
 import { css } from 'emotion';
 
-export const mobile = inner => css`
-  @media (max-width: ${1000 / 16}em) {
-    ${inner};
-  }
-`;
+const breakpoints = {
+  small: 576,
+  medium: 800,
+  large: 1240
+};
 
-export const phone = inner => css`
-  @media (max-width: ${650 / 16}em) {
-    ${inner};
-  }
-`;
+const mq = Object.keys(breakpoints).reduce(
+  (accumulator, label) => {
+    let prefix =
+      typeof breakpoints[label] === 'string'
+        ? ''
+        : 'min-width:';
+    let suffix =
+      typeof breakpoints[label] === 'string' ? '' : 'px';
+    accumulator[label] = cls =>
+      css`
+        @media (${prefix + breakpoints[label] + suffix}) {
+          ${cls};
+        }
+      `;
+    return accumulator;
+  },
+  {}
+);
+
+export default mq;
